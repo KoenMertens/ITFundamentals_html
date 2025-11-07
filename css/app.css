@@ -31,6 +31,49 @@ main {
     z-index: 1000;
 }
 
+/* Collapse the whole sidebar */
+.sidebar.collapse {
+    width: 60px; /* Just enough for the button */
+    overflow: hidden;
+    transition: width 0.3s ease;
+    min-width: 0 !important;
+}
+
+/* Style the header and button when collapsed */
+.sidebar.collapse .sidebar-header {
+    width: 60px;
+    padding: 0;
+    justify-content: center;
+}
+.sidebar.collapse .navbar-brand {
+    display: none; /* Hide the brand when collapsed */
+}
+.sidebar.collapse .navbar-toggler {
+    margin: 0 auto;
+}
+
+/* Ensure the button is always visible and centered */
+.sidebar-header {
+    position: relative;
+    z-index: 1001;
+}
+
+/* Transition the menu contents smoothly */
+#navMenu {
+    overflow: hidden;
+    transition: height 0.3s ease, opacity 0.2s ease;
+    height: auto;
+}
+
+/* When sidebar is collapsed, hide the menu contents */
+.sidebar.collapse #navMenu {
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
 .sidebar-header {
     background-color: rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -125,7 +168,7 @@ main {
 .hero-section {
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 4rem 0;
+    padding: 3rem;
     margin-bottom: 2rem;
     border-radius: 10px;
 }
@@ -158,7 +201,7 @@ main {
 .page-header {
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 2rem 0;
+    padding: 2rem;
     margin-bottom: 2rem;
     border-radius: 10px;
 }

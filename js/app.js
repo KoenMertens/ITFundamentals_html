@@ -51,14 +51,24 @@ function initializeApp() {
         });
     };
 
-    // Toggle nav menu on mobile
+    // Toggle nav menu (on desktop and mobile)
     const navToggle = document.getElementById('navToggle');
+    const sidebar = document.querySelector('.sidebar');
     const navMenu = document.getElementById('navMenu');
-    if (navToggle && navMenu) {
+    if (navToggle) {
         navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('collapse');
+            // Desktop: toggle sidebar collapse
+            if (window.innerWidth > 640 && sidebar) {
+                sidebar.classList.toggle('collapse');
+            }
+            // Mobile: toggle nav menu collapse
+            else if (navMenu){
+                navMenu.classList.toggle('collapse');
+            }
         });
     }
+
+
 
     // Add click handlers to all navigation links
     document.querySelectorAll('.nav-link').forEach(link => {
