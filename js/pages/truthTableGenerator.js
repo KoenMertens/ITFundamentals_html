@@ -164,7 +164,7 @@ function generateTruthTableHTML(truthTable) {
             const td = document.createElement('td');
             const value = truthTable[col] && truthTable[col][rowIndex];
             td.className = 'text-center ' + (value ? 'true-value' : 'false-value');
-            td.textContent = value ? 'T' : 'F';
+            td.textContent = value ? '1' : '0'; //kan ook ingesteld worden op 'T' en 'F'
             tr.appendChild(td);
         });
         tbody.appendChild(tr);

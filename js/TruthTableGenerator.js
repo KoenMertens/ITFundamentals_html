@@ -341,7 +341,7 @@ export class TruthTableGenerator {
     this.truthTable = {};
     
     for (const variable of this.variables) {
-      let flag = true;
+      let flag = false;
       const boolList = new Array(this.nbRows);
       this.truthTable[variable] = boolList;
       
