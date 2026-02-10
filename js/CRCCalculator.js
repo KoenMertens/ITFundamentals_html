@@ -5,12 +5,19 @@ import { Util } from './util.js';
 
 export class CRCCalculator {
   constructor() {
-    this.bitSeries = '';
+    this.bitSeries = ''; //original input bits (received or to be sent)
     this.polynomial = '';
-    this.crcResult = '';
-    this.bitSeriesVariant = '';
-    this.remainder = '';
-    this.calculationSteps = [];
+    this.crcResult = ''; // crcResult: CRC remainder for the chosen mode
+    this.bitSeriesVariant = ''; // bitSeriesVariant: data bits with (polyLen - 1) zeros appended (used in sender mode)
+    this.mode = 'receiver'; // 'sender' | 'receiver'
+  }
+
+  get calculationMode() {
+    return this.mode;
+  }
+
+  set calculationMode(value) {
+    this.mode = value === 'sender' ? 'sender' : 'receiver';
   }
 
   get inputData() {
@@ -30,11 +37,10 @@ export class CRCCalculator {
   }
 
   get dataWithCRC() {
-    return this.bitSeriesVariant;
-  }
-
-  set dataWithCRC(value) {
-    this.bitSeriesVariant = value;
+    if (this.mode !== 'sender' || !this.crcResult) {
+      return '';
+    }
+    return `${this.bitSeries}${this.crcResult}`;
   }
 
   calculate() {
@@ -42,17 +48,24 @@ export class CRCCalculator {
       this.crcResult = 'Fill in polynomial';
       return;
     }
+
     if (this.polynomial.length > this.bitSeries.length) {
       this.crcResult = 'Polynomial too long';
       return;
     }
 
-    this.bitSeriesVariant = this.bitSeries;
-    for (let i = 0; i < this.polynomial.length - 1; i++) {
-      this.bitSeriesVariant += '0';
+    if (this.mode === 'sender') {
+      this.bitSeriesVariant = this.bitSeries;
+      for (let i = 0; i < this.polynomial.length - 1; i++) {
+        this.bitSeriesVariant += '0';
+      }
+      // Sender: CRC of padded data (data + zeros)
+      this.crcResult = this.calculateCRC(this.bitSeriesVariant, this.polynomial);
+    } else {
+      this.bitSeriesVariant = '';
+      // Receiver: CRC of received data as-is
+      this.crcResult = this.calculateCRC(this.bitSeries, this.polynomial);
     }
-    this.crcResult = this.calculateCRC(this.bitSeries, this.polynomial);
-    this.remainder = this.crcResult;
   }
 
   calculateCRC(bitSeries, polynomial) {
@@ -96,7 +109,6 @@ export class CRCCalculator {
     this.bitSeries = '';
     this.polynomial = '';
     this.crcResult = '';
-    this.calculationSteps = [];
   }
 }
 
