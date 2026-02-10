@@ -35,8 +35,8 @@ export function loadCRC() {
                                     <div class="col-md-3">
                                         <label class="form-label">Mode</label>
                                         <select id="mode" class="form-select">
-                                            <option value="receiver">Receiver</option>
                                             <option value="sender">Sender</option>
+                                            <option value="receiver">Receiver</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -106,7 +106,9 @@ export function loadCRC() {
         document.getElementById('polynomial').value = '';
         document.getElementById('inputDataError').textContent = '';
         document.getElementById('polynomialError').textContent = '';
-        updateResults();
+        document.getElementById('resultCRCChecksum').textContent = 'N/A';
+        document.getElementById('senderResultsContainer').style.display = 'none';
+        document.getElementById('receiverResultsContainer').style.display = 'none';
     });
 
     modeSelect.addEventListener('change', () => {
