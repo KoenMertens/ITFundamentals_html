@@ -33,7 +33,7 @@ export function loadCRC() {
                             <form id="crcForm">
                                 <div class="row mb-3">
                                     <div class="col-md-3">
-                                        <label class="form-label fw-bold">Mode:</label>
+                                        <label class="form-label">Mode</label>
                                         <select id="mode" class="form-select">
                                             <option value="receiver">Receiver</option>
                                             <option value="sender">Sender</option>
@@ -71,15 +71,15 @@ export function loadCRC() {
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label fw-bold">CRC Remainder:</label>
+                                <label class="form-label">CRC Remainder</label>
                                 <div class="result-value fw-monospace fs-5 p-2 bg-light border rounded" id="resultCRCChecksum">N/A</div>
                             </div>
                             <div class="mb-3" id="senderResultsContainer" style="display: none;">
-                                <label class="form-label fw-bold">Data + CRC:</label>
+                                <label class="form-label">Data + CRC</label>
                                 <div class="result-value fw-monospace fs-5 p-2 bg-light border rounded" id="resultDataWithCRC" title="Sender: original data concatenated with CRC remainder">N/A</div>
                             </div>
                             <div class="mb-3" id="receiverResultsContainer" style="display: none;">
-                                <label class="form-label fw-bold">Conclusion:</label>
+                                <label class="form-label">Error(s) detected?</label>
                                 <div class="result-value fw-monospace fs-5 p-2 bg-light border rounded" id="resultFrame">N/A</div>
                                 <small class="form-text text-muted" id="resultFrameHelp"></small>
                             </div>
@@ -179,7 +179,7 @@ function updateResults() {
         // Receiver: check if remainder is all zeros
         const remainder = calc.crcChecksum;
         const isValid = remainder && /^0+$/.test(remainder);
-        frameDiv.textContent = isValid ? 'OK' : 'ERROR DETECTED';
+        frameDiv.textContent = isValid ? 'No errors detected' : 'Error(s) detected';
         helpDiv.textContent = isValid ? 'Frame is valid (remainder is 0)' : 'Frame is invalid (remainder is not 0)';
         frameDiv.classList.toggle('text-success', isValid);
         frameDiv.classList.toggle('text-danger', !isValid);
